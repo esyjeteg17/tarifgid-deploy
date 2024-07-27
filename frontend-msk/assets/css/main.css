@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#nprogress .bar {
+  background: #6366f1 !important; /* Цвет прогресс-бара */
+  height: 2px !important; /* Высота прогресс-бара */
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px #6366f1, 0 0 5px #6366f1 !important; /* Цвет тени */
+}

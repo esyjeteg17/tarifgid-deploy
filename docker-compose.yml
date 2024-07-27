@@ -1,0 +1,54 @@
+services:
+  frontend-msk:
+    build:
+      context: ./frontend-msk
+    container_name: frontend-msk
+    ports:
+      - '3001:3000'
+    environment:
+      - NODE_ENV=production
+    networks:
+      - tarifgid
+
+  frontend-spb:
+    build:
+      context: ./frontend-spb
+    container_name: frontend-spb
+    ports:
+      - '3002:3000'
+    environment:
+      - NODE_ENV=production
+    networks:
+      - tarifgid
+
+  api:
+    build:
+      context: ./api
+    container_name: api
+    ports:
+      - '8000:8000'
+    environment:
+      - DJANGO_SETTINGS_MODULE=backend.settings
+    depends_on:
+      - db
+    networks:
+      - tarifgid
+
+  db:
+    image: postgres:16
+    container_name: db
+    environment:
+      - POSTGRES_DB=tarifgid
+      - POSTGRES_USER=tarifgiduser
+      - POSTGRES_PASSWORD=securepassword
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - tarifgid
+
+networks:
+  tarifgid:
+    driver: bridge
+
+volumes:
+  pgdata:
